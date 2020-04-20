@@ -2,6 +2,7 @@ package io.kotaokubo.ppmtool.security;
 
 import io.kotaokubo.ppmtool.services.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.security.oauth2.client.EnableOAuth2Sso;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -18,6 +19,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import static io.kotaokubo.ppmtool.security.SecurityConstants.H2_URL;
 import static io.kotaokubo.ppmtool.security.SecurityConstants.SIGN_UP_URLS;
 
+@EnableOAuth2Sso
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(
@@ -63,6 +65,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers(
+                        "/**",
+                        "/login**",
+                        "/webjars/**",
+                        "/error**",
                         "/",
                         "/favicon.ico",
                         "/**/*.png",
